@@ -23,11 +23,11 @@ public class LoginFormController implements Initializable {
     
     @FXML
     private Label labelStatus;
-    public Stage stage;
+    private Stage selfStage;
     
     @FXML
     private void login(ActionEvent event) throws Exception {
-        this.stage.close();
+        selfStage.close();
         
         Parent root;
         root = FXMLLoader.load(getClass().getResource("MainForm.fxml"));
@@ -41,11 +41,11 @@ public class LoginFormController implements Initializable {
     
     @FXML
     private void close(ActionEvent event) {
-        this.stage.close();
+        selfStage.close();
     }
     
     public void setStage(Stage stage) {
-        this.stage = stage;
+        selfStage = stage;
     }
     
     @Override

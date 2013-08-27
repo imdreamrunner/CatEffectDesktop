@@ -20,13 +20,12 @@ public class CaMS extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginForm.fxml"));
-        Parent root = (Parent) loader.load();
+        Parent root = (Parent)loader.load();
         LoginFormController controller = (LoginFormController)loader.getController();
         controller.setStage(stage);
-        Scene scene = new Scene(root);
+        stage.setScene(new Scene(root));
         stage.setTitle("CaMS@BTU - Welcome");
-        // stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setScene(scene);
+        stage.initStyle(StageStyle.DECORATED);
         stage.show();
     }
 
