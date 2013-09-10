@@ -21,18 +21,21 @@ import javafx.stage.Stage;
  */
 public class LoginFormController implements Initializable {
     
+    private Stage selfStage;
+    
     @FXML
     private Label labelStatus;
-    private Stage selfStage;
     
     @FXML
     private void login(ActionEvent event) throws Exception {
         selfStage.close();
         
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("MainForm.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainForm.fxml"));
+        Parent root = (Parent)loader.load();
+        MainFormController controller = (MainFormController)loader.getController();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        controller.setStage(stage);
         stage.setScene(scene);
         stage.setTitle("CaMS@BTU");
         stage.setScene(scene);
