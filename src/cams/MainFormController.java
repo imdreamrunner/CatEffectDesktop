@@ -11,6 +11,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.text.Font;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -35,6 +36,15 @@ public class MainFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Font.loadFont(
+            getClass().getResource("fonts/glyphicons-halflings-regular.ttf").toExternalForm(), 
+            10
+        );
+        Font font = Font.loadFont(
+            getClass().getResource("fonts/Telex-Regular.ttf").toExternalForm(), 
+            10
+        );
+        System.out.println(font.getFamily());
         
         final WebEngine webEngine = webView.getEngine();
         
