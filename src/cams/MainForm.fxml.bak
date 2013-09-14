@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="420.0" prefWidth="600.0" styleClass="root" xmlns:fx="http://javafx.com/fxml" fx:controller="cams.MainFormController">
   <children>
-    <WebView fx:id="webView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <WebView fx:id="webView" />
   </children>
   <stylesheets>
     <URL value="@MainForm.css" />
