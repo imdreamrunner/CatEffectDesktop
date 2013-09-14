@@ -7,7 +7,6 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <AnchorPane id="AnchorPane" onMouseDragged="#mouseDraggedHandler" onMousePressed="#mousePressedHandler" prefHeight="420.0" prefWidth="600.0" styleClass="root" xmlns:fx="http://javafx.com/fxml" fx:controller="cams.LoginFormController">
   <children>
@@ -21,12 +20,8 @@
     </ChoiceBox>
     <TextField fx:id="username" layoutX="250.0" layoutY="192.0" prefHeight="30.0" prefWidth="200.0" styleClass="default-input" />
     <PasswordField fx:id="password" layoutX="250.0" layoutY="232.0" prefHeight="30.0" prefWidth="200.0" styleClass="default-input" />
-    <Button id="sign-in" fx:id="buttonSignIn" layoutX="250.0" layoutY="269.0" onAction="#login" prefHeight="30.0" prefWidth="100.0" text="sign in" textFill="WHITE">
-      <font>
-        <Font size="16.0" fx:id="x1" />
-      </font>
-    </Button>
-    <Button id="exit" fx:id="buttonExit" font="$x1" layoutX="360.0" layoutY="269.0" mnemonicParsing="false" onAction="#exit" prefHeight="30.0" prefWidth="89.9998779296875" text="exit" textFill="WHITE" />
+    <Button id="sign-in" fx:id="buttonSignIn" layoutX="250.0" layoutY="269.0" onAction="#login" prefHeight="30.0" prefWidth="100.0" text="sign in" />
+    <Button id="exit" fx:id="buttonExit" layoutX="360.0" layoutY="269.0" mnemonicParsing="false" onAction="#exit" prefHeight="30.0" prefWidth="90.0" text="exit" />
   </children>
   <stylesheets>
     <URL value="@LoginForm.css" />

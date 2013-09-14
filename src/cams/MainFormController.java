@@ -40,14 +40,13 @@ public class MainFormController implements Initializable {
             getClass().getResource("fonts/glyphicons-halflings-regular.ttf").toExternalForm(), 
             10
         );
-        Font font = Font.loadFont(
+        Font.loadFont(
             getClass().getResource("fonts/Telex-Regular.ttf").toExternalForm(), 
             10
         );
-        System.out.println(font.getFamily());
         
         final WebEngine webEngine = webView.getEngine();
-        
+    
         webEngine.getLoadWorker().stateProperty().addListener(
             new ChangeListener<State>() {
                 @Override
@@ -69,8 +68,10 @@ public class MainFormController implements Initializable {
     
     public class Bridge {
         public void exit() {
-            System.out.println("Form is going to close...");
-            selfStage.close();
+            // selfStage.close();
+        }
+        public void setFullScreen(boolean value) {
+            selfStage.setFullScreen(value);
         }
     }
 }

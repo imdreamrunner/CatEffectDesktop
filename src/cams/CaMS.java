@@ -23,9 +23,11 @@ public class CaMS extends Application {
         Parent root = (Parent)loader.load();
         LoginFormController controller = (LoginFormController)loader.getController();
         controller.setStage(stage);
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.setFill(null);
+        stage.setScene(scene);
         stage.setTitle("CaMS@BTU - Welcome");
-        stage.initStyle(StageStyle.DECORATED);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();
     }
 

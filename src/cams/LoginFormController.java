@@ -12,7 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -22,9 +23,6 @@ import javafx.stage.Stage;
 public class LoginFormController implements Initializable {
     
     private Stage selfStage;
-    
-    @FXML
-    private Label labelStatus;
     
     @FXML
     private void login(ActionEvent event) throws Exception {
@@ -43,8 +41,26 @@ public class LoginFormController implements Initializable {
     }
     
     @FXML
-    private void close(ActionEvent event) {
+    private void exit(ActionEvent event) {
         selfStage.close();
+    }
+    
+    private double dragInitialX, dragInitialY;
+    
+    @FXML
+    private void mousePressedHandler(MouseEvent me) {
+        if (me.getButton() != MouseButton.MIDDLE) {
+            dragInitialX = me.getSceneX();
+            dragInitialY = me.getSceneY();
+        }
+    }
+    
+    @FXML
+    private void mouseDraggedHandler(MouseEvent me) {
+        if (me.getButton() != MouseButton.MIDDLE) {
+            selfStage.setX(me.getScreenX() - dragInitialX);
+            selfStage.setY(me.getScreenY() - dragInitialY);
+        }
     }
     
     public void setStage(Stage stage) {
