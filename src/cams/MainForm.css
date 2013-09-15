@@ -1,3 +1,8 @@
+.root {
+    -fx-background-color: #f0f0f0;
+    -fx-background-image: url("images/mainForm.png");
+}
+
 #webView {
     height: 200px;
 }

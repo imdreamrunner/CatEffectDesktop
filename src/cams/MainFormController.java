@@ -68,7 +68,7 @@ public class MainFormController implements Initializable {
     
     public class Bridge {
         public void exit() {
-            // selfStage.close();
+            selfStage.close();
         }
         public void setFullScreen(boolean value) {
             selfStage.setFullScreen(value);
