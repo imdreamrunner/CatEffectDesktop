@@ -71,13 +71,14 @@ public class MainFormController implements Initializable {
     }
     
     public class Bridge {
-        public void open() throws IOException {
+        public void open(String target) throws IOException {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("PopUpForm.fxml"));
             Parent root = (Parent)loader.load();
             PopUpFormController controller = (PopUpFormController)loader.getController();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             controller.setStage(stage);
+            controller.setTarget(target);
             stage.setScene(scene);
             stage.setTitle("Pop Up Window");
             stage.setScene(scene);
