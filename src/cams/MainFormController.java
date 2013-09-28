@@ -35,6 +35,9 @@ public class MainFormController implements Initializable {
     @FXML
     private WebView webView;
     
+    @FXML
+    private WebView sideBar;
+    
     /**
      * Initializes the controller class.
      */
@@ -49,6 +52,21 @@ public class MainFormController implements Initializable {
             10
         );
         
+        final WebEngine sideBarEngine = sideBar.getEngine();
+        
+        sideBarEngine.getLoadWorker().stateProperty().addListener(
+            new ChangeListener<State>() {
+                @Override
+                public void changed(ObservableValue<? extends State> ov,
+                    State oldState, State newState) {
+                    JSObject jsobj = (JSObject)sideBarEngine.executeScript("window");
+        jsobj.setMember("java", new Bridge());
+                }
+            }
+        );
+        
+        sideBarEngine.load("http://localhost:9000/system/sidebar?auth_username=admin&auth_password=admin");
+        
         final WebEngine webEngine = webView.getEngine();
     
         webEngine.getLoadWorker().stateProperty().addListener(
@@ -62,7 +80,7 @@ public class MainFormController implements Initializable {
             }
         );
         
-        webEngine.load("http://localhost:9000/system/managers?auth_username=admin&auth_password=admin");
+        webEngine.load("http://localhost:9000/system/stalls?auth_username=admin&auth_password=admin");
         
     }    
     
