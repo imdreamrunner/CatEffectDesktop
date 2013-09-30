@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -52,18 +53,22 @@ public class MainFormController implements Initializable {
             10
         );
         
+        sideBar.setVisible(false);
+        
         final WebEngine sideBarEngine = sideBar.getEngine();
         
-        sideBarEngine.getLoadWorker().stateProperty().addListener(
-            new ChangeListener<State>() {
-                @Override
-                public void changed(ObservableValue<? extends State> ov,
-                    State oldState, State newState) {
+        ChangeListener sideBarListener = new ChangeListener<State>() {
+            @Override
+            public void changed(ObservableValue<? extends State> ov, State oldState, State newState) {
+                if (newState == Worker.State.SUCCEEDED) {
                     JSObject jsobj = (JSObject)sideBarEngine.executeScript("window");
-        jsobj.setMember("java", new Bridge());
+    jsobj.setMember("java", new Bridge());
+                    sideBar.setVisible(true);
                 }
             }
-        );
+        };
+        
+        sideBarEngine.getLoadWorker().stateProperty().addListener(sideBarListener);
         
         sideBarEngine.load("http://localhost:9000/system/sidebar?auth_username=admin&auth_password=admin");
         
@@ -107,6 +112,9 @@ public class MainFormController implements Initializable {
         }
         public void setFullScreen(boolean value) {
             selfStage.setFullScreen(value);
+        }
+        public void setMenu(int id) {
+            
         }
     }
 }
