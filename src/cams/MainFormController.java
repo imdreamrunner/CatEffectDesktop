@@ -83,7 +83,7 @@ public class MainFormController implements Initializable {
         
         sideBarEngine.getLoadWorker().stateProperty().addListener(sideBarListener);
         
-        sideBarEngine.load("http://localhost:9000/system/sidebar?auth_username=admin&auth_password=admin");
+        sideBarEngine.load(ServerInterface.getUrl("/system/sidebar"));
         
         final WebEngine webEngine = webView.getEngine();
         webView.setVisible(false);
@@ -103,7 +103,7 @@ public class MainFormController implements Initializable {
         
         webEngine.getLoadWorker().stateProperty().addListener(webViewListener);
         webEngine.setOnAlert(alertHandler);
-        webEngine.load("http://localhost:9000/system/managers?auth_username=admin&auth_password=admin");
+        webEngine.load(ServerInterface.getUrl("/system/managers"));
         
     }    
     
@@ -113,11 +113,10 @@ public class MainFormController implements Initializable {
     
     public class Bridge {
         public String getUsername() {
-            System.out.println("get username");
-            return "admin";
+            return ServerInterface.getUsername();
         }
         public String getPassword() {
-            return "admin";
+            return ServerInterface.getPassword();
         }
         public void open(String target) throws IOException {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("PopUpForm.fxml"));
