@@ -30,8 +30,6 @@ public class PopUpFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
     }   
     
     public void setStage(Stage stage) {

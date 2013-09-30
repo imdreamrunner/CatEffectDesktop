@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
@@ -53,6 +55,15 @@ public class MainFormController implements Initializable {
             10
         );
         
+        EventHandler<WebEvent<String>> alertHandler = new EventHandler<WebEvent<String>> () {
+
+            @Override
+            public void handle(WebEvent<String> t) {
+                System.out.println(t.getData());
+            }
+            
+        };
+        
         sideBar.setVisible(false);
         
         final WebEngine sideBarEngine = sideBar.getEngine();
@@ -60,10 +71,12 @@ public class MainFormController implements Initializable {
         ChangeListener sideBarListener = new ChangeListener<State>() {
             @Override
             public void changed(ObservableValue<? extends State> ov, State oldState, State newState) {
+                System.out.println(" SideBar Stage: " + newState.toString());
+                JSObject jsobj = (JSObject)sideBarEngine.executeScript("window");
+                jsobj.setMember("java", new Bridge());
                 if (newState == Worker.State.SUCCEEDED) {
-                    JSObject jsobj = (JSObject)sideBarEngine.executeScript("window");
-    jsobj.setMember("java", new Bridge());
                     sideBar.setVisible(true);
+                    sideBarEngine.executeScript("javaPageLoad();");
                 }
             }
         };
@@ -73,19 +86,24 @@ public class MainFormController implements Initializable {
         sideBarEngine.load("http://localhost:9000/system/sidebar?auth_username=admin&auth_password=admin");
         
         final WebEngine webEngine = webView.getEngine();
-    
-        webEngine.getLoadWorker().stateProperty().addListener(
-            new ChangeListener<State>() {
-                @Override
-                public void changed(ObservableValue<? extends State> ov,
-                    State oldState, State newState) {
-                    JSObject jsobj = (JSObject)webEngine.executeScript("window");
-        jsobj.setMember("java", new Bridge());
+        webView.setVisible(false);
+        ChangeListener webViewListener = new ChangeListener<State>() {
+            @Override
+            public void changed(ObservableValue<? extends State> ov,
+                State oldState, State newState) {
+                System.out.println(" WebView Stage: " + newState.toString());
+                JSObject jsobj = (JSObject)webEngine.executeScript("window");
+                jsobj.setMember("java", new Bridge());
+                if (newState == Worker.State.SUCCEEDED) {
+                    webView.setVisible(true);
+                    webEngine.executeScript("javaPageLoad();");
                 }
             }
-        );
+        };
         
-        webEngine.load("http://localhost:9000/system/stalls?auth_username=admin&auth_password=admin");
+        webEngine.getLoadWorker().stateProperty().addListener(webViewListener);
+        webEngine.setOnAlert(alertHandler);
+        webEngine.load("http://localhost:9000/system/managers?auth_username=admin&auth_password=admin");
         
     }    
     
@@ -94,6 +112,13 @@ public class MainFormController implements Initializable {
     }
     
     public class Bridge {
+        public String getUsername() {
+            System.out.println("get username");
+            return "admin";
+        }
+        public String getPassword() {
+            return "admin";
+        }
         public void open(String target) throws IOException {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("PopUpForm.fxml"));
             Parent root = (Parent)loader.load();
@@ -103,7 +128,7 @@ public class MainFormController implements Initializable {
             controller.setStage(stage);
             controller.setTarget(target);
             stage.setScene(scene);
-            stage.setTitle("Pop Up Window");
+            stage.setTitle("Loading... - CaMS@BTU");
             stage.setScene(scene);
             stage.show();
         }
@@ -116,5 +141,6 @@ public class MainFormController implements Initializable {
         public void setMenu(int id) {
             
         }
+        
     }
 }
