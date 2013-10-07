@@ -4,6 +4,8 @@
  */
 package cams;
 
+import java.io.File;
+import java.util.Scanner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +21,8 @@ public class CaMS extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        Scanner scanner = new Scanner(new File("config.ini"));
+        scanner.close();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginForm.fxml"));
         Parent root = (Parent)loader.load();
         LoginFormController controller = (LoginFormController)loader.getController();

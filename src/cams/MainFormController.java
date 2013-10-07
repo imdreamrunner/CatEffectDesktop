@@ -41,7 +41,7 @@ public class MainFormController implements Initializable {
     @FXML
     private WebView sideBar;
     
-    private static WebEngine webEngine;
+    private static WebEngine sideBarEngine, webEngine;
     /**
      * Initializes the controller class.
      */
@@ -67,7 +67,7 @@ public class MainFormController implements Initializable {
         
         sideBar.setVisible(false);
         
-        final WebEngine sideBarEngine = sideBar.getEngine();
+        sideBarEngine = sideBar.getEngine();
         
         ChangeListener sideBarListener = new ChangeListener<State>() {
             @Override
@@ -104,7 +104,7 @@ public class MainFormController implements Initializable {
         
         webEngine.getLoadWorker().stateProperty().addListener(webViewListener);
         webEngine.setOnAlert(alertHandler);
-        webEngine.load(ServerInterface.getUrl("/system/stalls"));
+        webEngine.load(ServerInterface.getUrl("/system/dashboard"));
         
     }    
     
@@ -144,7 +144,7 @@ public class MainFormController implements Initializable {
             selfStage.setFullScreen(value);
         }
         public void setMenu(int id) {
-            
+            sideBarEngine.executeScript("setMenu(" + id +  ");");
         }
         
     }
