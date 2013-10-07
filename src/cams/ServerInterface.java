@@ -24,9 +24,7 @@ public class ServerInterface {
         return "admin";
     }
     public static String getUrl(String url) {
-        String ret = serverAddress + url
-                     + "?auth_username=" + getUsername()
-                     + "&auth_password=" + getPassword();
+        String ret = serverAddress + url;
         return ret;
     }
     

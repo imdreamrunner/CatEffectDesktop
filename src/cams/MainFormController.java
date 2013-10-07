@@ -41,6 +41,7 @@ public class MainFormController implements Initializable {
     @FXML
     private WebView sideBar;
     
+    private static WebEngine webEngine;
     /**
      * Initializes the controller class.
      */
@@ -85,7 +86,7 @@ public class MainFormController implements Initializable {
         
         sideBarEngine.load(ServerInterface.getUrl("/system/sidebar"));
         
-        final WebEngine webEngine = webView.getEngine();
+        webEngine = webView.getEngine();
         webView.setVisible(false);
         ChangeListener webViewListener = new ChangeListener<State>() {
             @Override
@@ -103,7 +104,7 @@ public class MainFormController implements Initializable {
         
         webEngine.getLoadWorker().stateProperty().addListener(webViewListener);
         webEngine.setOnAlert(alertHandler);
-        webEngine.load(ServerInterface.getUrl("/system/managers"));
+        webEngine.load(ServerInterface.getUrl("/system/stalls"));
         
     }    
     
@@ -118,7 +119,10 @@ public class MainFormController implements Initializable {
         public String getPassword() {
             return ServerInterface.getPassword();
         }
-        public void open(String target) throws IOException {
+        public void navigate(String target) {
+            webEngine.load(ServerInterface.getUrl(target));
+        }
+        public void open(String target, int width, int height) throws IOException {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("PopUpForm.fxml"));
             Parent root = (Parent)loader.load();
             PopUpFormController controller = (PopUpFormController)loader.getController();
@@ -126,6 +130,8 @@ public class MainFormController implements Initializable {
             Stage stage = new Stage();
             controller.setStage(stage);
             controller.setTarget(target);
+            stage.setWidth(width);
+            stage.setHeight(height);
             stage.setScene(scene);
             stage.setTitle("Loading... - CaMS@BTU");
             stage.setScene(scene);
