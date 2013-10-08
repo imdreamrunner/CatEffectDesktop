@@ -17,6 +17,11 @@ public class ServerInterface {
         password = newPassword;
         return true;
     }
+    
+    public static void setServerAddress (String newServerAddress) {
+        serverAddress = newServerAddress;
+    }
+    
     public static String getUsername() {
         return "admin";
     }
