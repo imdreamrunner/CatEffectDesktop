@@ -15,9 +15,12 @@
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="OFS Staff" />
-          <String fx:value="Stall" />
+          <String fx:value="Stall Manager" />
         </FXCollections>
       </items>
+      <value>
+          <String fx:value="Stall Manager" />
+      </value>
     </ChoiceBox>
     <TextField fx:id="username" layoutX="250.0" layoutY="247.0" prefHeight="30.0" prefWidth="200.0" styleClass="default-input" />
     <PasswordField fx:id="password" layoutX="250.0" layoutY="287.0" prefHeight="30.0" prefWidth="200.0" styleClass="default-input" />
