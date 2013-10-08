@@ -61,7 +61,7 @@ public class ServerInterface {
             url = getUrl("/system/auth");
         }
         
-        HttpPost httppost = new HttpPost();
+        HttpPost httppost = new HttpPost(url);
 
         // Request parameters and other properties.
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -123,10 +123,13 @@ public class ServerInterface {
     }
     
     public static String getUsername() {
-        return "admin";
+        return username;
     }
     public static String getPassword() {
-        return "admin";
+        return password;
+    }
+    public static boolean isSystem() {
+        return managerType == 1;
     }
     public static String getErrorMessage() {
         return errorMessage;

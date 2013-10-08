@@ -4,17 +4,13 @@
  */
 package cams;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -33,6 +29,8 @@ public class PopUpFormController implements Initializable {
     private Stage selfStage;
     private String target;
     
+    private MainFormController mainFormController;
+    
     /**
      * Initializes the controller class.
      */
@@ -42,6 +40,10 @@ public class PopUpFormController implements Initializable {
     
     public void setStage(Stage stage) {
         selfStage = stage;
+    }
+    
+    public void setMainFormController(MainFormController mfc) {
+        mainFormController = mfc;
     }
     
     public void setTarget(String newTarget) {
@@ -79,7 +81,13 @@ public class PopUpFormController implements Initializable {
         public void setFullScreen(boolean value) {
             selfStage.setFullScreen(value);
         }
-        
+        public void close(boolean refresh) {
+            System.out.println("trying to close.");
+            if (refresh) {
+                mainFormController.refreshWebView();
+            }
+            selfStage.close();
+        }
     }
     
 }

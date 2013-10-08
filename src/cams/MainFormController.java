@@ -35,6 +35,8 @@ public class MainFormController implements Initializable {
 
     private Stage selfStage;
     
+    MainFormController mainFormController;
+    
     @FXML
     private WebView webView;
     
@@ -47,6 +49,8 @@ public class MainFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        mainFormController = this;
+        
         Font.loadFont(
             getClass().getResource("fonts/glyphicons-halflings-regular.ttf").toExternalForm(), 
             10
@@ -84,7 +88,11 @@ public class MainFormController implements Initializable {
         
         sideBarEngine.getLoadWorker().stateProperty().addListener(sideBarListener);
         
-        sideBarEngine.load(ServerInterface.getUrl("/system/sidebar"));
+        if (ServerInterface.isSystem()) {
+            sideBarEngine.load(ServerInterface.getUrl("/system/sidebar"));
+        } else {
+            sideBarEngine.load(ServerInterface.getUrl("/stall/sidebar"));
+        }
         
         webEngine = webView.getEngine();
         webView.setVisible(false);
@@ -112,6 +120,10 @@ public class MainFormController implements Initializable {
         selfStage = stage;
     }
     
+    public void refreshWebView() {
+        webEngine.executeScript("location.reload()");
+    }
+    
     public class Bridge {
         public String getUsername() {
             return ServerInterface.getUsername();
@@ -130,6 +142,7 @@ public class MainFormController implements Initializable {
             Stage stage = new Stage();
             controller.setStage(stage);
             controller.setTarget(target);
+            controller.setMainFormController(mainFormController);
             stage.setWidth(width);
             stage.setHeight(height);
             stage.setScene(scene);
