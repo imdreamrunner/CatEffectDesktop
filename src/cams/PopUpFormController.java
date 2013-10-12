@@ -67,7 +67,7 @@ public class PopUpFormController implements Initializable {
         };
         
         webEngine.getLoadWorker().stateProperty().addListener(webViewListener);
-        webEngine.load("http://localhost:9000" + target);
+        webEngine.load(ServerInterface.getUrl(target));
     }
     
     
@@ -81,13 +81,12 @@ public class PopUpFormController implements Initializable {
         public void setFullScreen(boolean value) {
             selfStage.setFullScreen(value);
         }
-        public void close(boolean refresh) {
-            System.out.println("trying to close.");
-            if (refresh) {
-                mainFormController.refreshWebView();
-            }
+        public void refreshParent() {
+            System.out.println("trying to refresh.");
+            mainFormController.refreshWebView();
+        }
+        public void close() {
             selfStage.close();
         }
     }
-    
 }
