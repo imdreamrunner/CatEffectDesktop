@@ -113,7 +113,7 @@ public class MainFormController implements Initializable {
         webEngine.getLoadWorker().stateProperty().addListener(webViewListener);
         webEngine.setOnAlert(alertHandler);
         webEngine.load(ServerInterface.getUrl("/system/dashboard"));
-        
+        // webEngine.load("http://jqueryui.com/sortable/");
     }    
     
     public void setStage(Stage stage) {
