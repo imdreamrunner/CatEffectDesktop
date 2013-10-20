@@ -88,12 +88,6 @@ public class MainFormController implements Initializable {
         
         sideBarEngine.getLoadWorker().stateProperty().addListener(sideBarListener);
         
-        if (ServerInterface.isSystem()) {
-            sideBarEngine.load(ServerInterface.getUrl("/system/sidebar"));
-        } else {
-            sideBarEngine.load(ServerInterface.getUrl("/stall/sidebar"));
-        }
-        
         webEngine = webView.getEngine();
         webView.setVisible(false);
         ChangeListener webViewListener = new ChangeListener<State>() {
@@ -112,7 +106,15 @@ public class MainFormController implements Initializable {
         
         webEngine.getLoadWorker().stateProperty().addListener(webViewListener);
         webEngine.setOnAlert(alertHandler);
-        webEngine.load(ServerInterface.getUrl("/system/dashboard"));
+        
+        if (ServerInterface.isSystem()) {
+            sideBarEngine.load(ServerInterface.getUrl("/system/sidebar"));
+            webEngine.load(ServerInterface.getUrl("/system/dashboard"));
+        } else {
+            sideBarEngine.load(ServerInterface.getUrl("/stall/sidebar"));
+            webEngine.load(ServerInterface.getUrl("/stall/dashboard"));
+        }
+        
         // webEngine.load("http://jqueryui.com/sortable/");
     }    
     
