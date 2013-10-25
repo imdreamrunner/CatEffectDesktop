@@ -9,9 +9,11 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
@@ -51,6 +53,15 @@ public class PopUpFormController implements Initializable {
         final WebEngine webEngine = webView.getEngine();
         webView.setVisible(false);
         
+        EventHandler<WebEvent<String>> alertHandler = new EventHandler<WebEvent<String>> () {
+
+            @Override
+            public void handle(WebEvent<String> t) {
+                System.out.println(t.getData());
+            }
+            
+        };
+        
         ChangeListener webViewListener = new ChangeListener<Worker.State>() {
             @Override
             public void changed(ObservableValue<? extends Worker.State> ov,
@@ -66,6 +77,7 @@ public class PopUpFormController implements Initializable {
             }
         };
         
+        webEngine.setOnAlert(alertHandler);
         webEngine.getLoadWorker().stateProperty().addListener(webViewListener);
         webEngine.load(ServerInterface.getUrl(target));
     }
@@ -99,6 +111,7 @@ public class PopUpFormController implements Initializable {
             } else {
                 str = QRScanner.getText();
             }
+            System.out.println(str);
             return str;
         }
     }
