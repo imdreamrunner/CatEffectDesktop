@@ -72,6 +72,7 @@ public class PopUpFormController implements Initializable {
     
     
     public class Bridge {
+        private boolean fullScreen = false;
         public String getUsername() {
             return ServerInterface.getUsername();
         }
@@ -79,6 +80,7 @@ public class PopUpFormController implements Initializable {
             return ServerInterface.getPassword();
         }
         public void setFullScreen(boolean value) {
+            fullScreen = true;
             selfStage.setFullScreen(value);
         }
         public void refreshParent() {
@@ -87,6 +89,17 @@ public class PopUpFormController implements Initializable {
         }
         public void close() {
             selfStage.close();
+        }
+        public String getAccountString() {
+            String str = null;
+            if (fullScreen) {
+                selfStage.setFullScreen(false);
+                str = QRScanner.getText();
+                selfStage.setFullScreen(true);
+            } else {
+                str = QRScanner.getText();
+            }
+            return str;
         }
     }
 }

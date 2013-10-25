@@ -47,8 +47,12 @@ public class LoginFormController implements Initializable {
         if (success) {
             openMainForm();
         } else {
+            String message = ServerInterface.getErrorMessage();
+            if (message == null) {
+                message = "Cannot connect to the server.";
+            }
             MessageBox.show(selfStage,
-                ServerInterface.getErrorMessage(),
+                message,
                 "Login Fails",
                 MessageBox.ICON_INFORMATION);
         }
