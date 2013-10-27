@@ -75,7 +75,8 @@ public class LoginFormController implements Initializable {
     
     @FXML
     private void exit(ActionEvent event) {
-        selfStage.close();
+        // selfStage.close();
+        System.exit(0);
     }
     
     private double dragInitialX, dragInitialY;

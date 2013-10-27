@@ -22,6 +22,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import netscape.javascript.JSObject;
 
 // import com.google.zxing.BarcodeFormat;
@@ -152,8 +153,18 @@ public class MainFormController implements Initializable {
             stage.setScene(scene);
             stage.show();
         }
-        public void exit() {
-            selfStage.close();
+        public void exit() throws IOException {
+            selfStage.close();FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginForm.fxml"));
+            Stage stage = new Stage();
+            Parent root = (Parent)loader.load();
+            LoginFormController controller = (LoginFormController)loader.getController();
+            controller.setStage(stage);
+            Scene scene = new Scene(root);
+            scene.setFill(null);
+            stage.setScene(scene);
+            stage.setTitle("CaMS@BTU - Welcome");
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.show();
         }
         public void setFullScreen(boolean value) {
             selfStage.setFullScreen(value);

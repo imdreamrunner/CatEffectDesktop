@@ -13,10 +13,14 @@ public class QRScanner {
         try {
             Process proc = Runtime.getRuntime().exec("java -jar qrscan/QRCodeScanner.jar");
             // Then retreive the process output
+            proc.waitFor();
             InputStream in = proc.getInputStream();
             InputStream err = proc.getErrorStream();
             output = streamToString(in);
         } catch (IOException ex) {
+            System.exit(1);
+        } catch (InterruptedException ex) {
+            System.exit(2);
         }
         return output;
     }
