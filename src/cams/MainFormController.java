@@ -172,6 +172,12 @@ public class MainFormController implements Initializable {
         public void setMenu(int id) {
             sideBarEngine.executeScript("setMenu(" + id +  ");");
         }
+        public String getAccountString() {
+            String str;
+            str = QRScanner.getText();
+            System.out.println(str);
+            return str;
+        }
         
     }
 }
