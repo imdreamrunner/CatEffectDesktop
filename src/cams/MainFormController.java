@@ -23,6 +23,7 @@ import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jfx.messagebox.MessageBox;
 import netscape.javascript.JSObject;
 
 // import com.google.zxing.BarcodeFormat;
@@ -65,7 +66,10 @@ public class MainFormController implements Initializable {
 
             @Override
             public void handle(WebEvent<String> t) {
-                System.out.println(t.getData());
+                MessageBox.show(selfStage,
+                    t.getData(),
+                    "Information - CaMS",
+                    MessageBox.ICON_INFORMATION);
             }
             
         };

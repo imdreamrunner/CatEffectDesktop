@@ -16,6 +16,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import jfx.messagebox.MessageBox;
 import netscape.javascript.JSObject;
 
 /**
@@ -57,7 +58,10 @@ public class PopUpFormController implements Initializable {
 
             @Override
             public void handle(WebEvent<String> t) {
-                System.out.println(t.getData());
+                MessageBox.show(selfStage,
+                    t.getData(),
+                    "Information - CaMS",
+                    MessageBox.ICON_INFORMATION);
             }
             
         };
